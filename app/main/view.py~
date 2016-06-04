@@ -279,11 +279,10 @@ def change_avatar():
             image=Image.open(file)
 	    u'博客中含有三类大小不同的头像图片 将三类图片以相同的文件名存储到数据库file_img字段中'
             image=[image.resize((256,256)),image.resize((60,60)),image.resize((23,23))]
-	    u'嫁接用户名 使不同用户上传相同文件名的图片时不会相互干扰'
-            image[0].save(os.path.join(app.config['UPLOAD_FOLDER'].get('0'),current_username+filename))
-            image[1].save(os.path.join(app.config['UPLOAD_FOLDER'].get('1'),current_username+filename))
-            image[2].save(os.path.join(app.config['UPLOAD_FOLDER'].get('2'),current_username+filename))
-            current_user.file_img=current_username+filename
+            image[0].save(os.path.join(app.config['UPLOAD_FOLDER'].get('0'),filename))
+            image[1].save(os.path.join(app.config['UPLOAD_FOLDER'].get('1'),filename))
+            image[2].save(os.path.join(app.config['UPLOAD_FOLDER'].get('2'),filename))
+            current_user.file_img=filename
             current_user.save()
             return redirect(url_for('index.edit_profile'))
     return render_template("change_avatar.html",change_avatar_form=change_avatar_form)
