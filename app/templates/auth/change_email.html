@@ -1,0 +1,55 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>修改注册邮箱</title>#}
+{#</head>#}
+{#<body>#}
+{#<div>#}
+{#    <h2>Hello,{{ current_user.username }}</h2>#}
+{#    <p>如果您要修改注册邮箱请填写下面的表完成您的修改,您要现在修改吗?</p>#}
+{#    <form method="post">#}
+{#        <p>您的登录密码?</p>#}
+{#        <input type="password" name="password" required="required" />#}
+{#        <p>您新的绑定邮箱?</p>#}
+{#        <input type="text" name="new_email" required="required" />#}
+{#        <span>{{ change_email_form.submit() }}</span>#}
+{#    </form>#}
+{#    {{ get_flashed_messages()[0] }}#}
+{#</div>#}
+{#</body>#}
+{#</html>#}
+
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+    .pass{color: firebrick;}
+    .span{color: green;}
+    .content{align-self: center;color: red;}
+    .alert{margin-left: 10px; margin-right: 780px;margin-top: 200px;}
+    .close{margin-left: 20px;}
+    </style>
+{% endblock %}
+{% block page_content %}
+<div class="contend">
+    <div class="page-header">
+        <h1 class="pass">修改邮箱？</h1>
+    </div>
+    <h4 class="span">
+        如果您要修改注册邮箱请填写下面的表完成您的修改,您要现在修改吗?
+    </h4>
+    <div class="col-md-4">
+    {{ wtf.quick_form(change_email_form) }}
+    </div>
+</div>{% if get_flashed_messages() %}
+<div class="alert alert-warning" align="center">
+<button type="button" class="close" data-dismiss="alert">&times;</button>
+<div class="content" align="center">{{ get_flashed_messages()[0] }}</div>
+</div>
+{% endif %}
+{% endblock %}
+</html>

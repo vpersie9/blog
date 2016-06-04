@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+    .pass{color: firebrick;}
+    .span{color: green;}
+    </style>
+{% endblock %}
+{% block page_content %}
+<div class="content">
+    <div class="page-header">
+        <h1 class="pass">忘记密码？</h1>
+    </div>
+    <p>
+        请您输入正确的注册邮箱地址并点击下面的<span class="span">‘确认重置密码’</span>按钮,服务器会向您的注册邮箱推送一个重置链接.
+        点击链接即可激活密码重置,您确定要重置密码吗?
+    </p>
+    <div class="col-md-4">
+    {{ wtf.quick_form(recreate_passwd_form) }}
+    </div>
+</div>
+{% endblock %}
+</html>

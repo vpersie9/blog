@@ -1,0 +1,9 @@
+你好 {{ user.username }},
+
+Welcome to Factory!
+
+首先请登录您的账户,然后请点击下面的链接完成您的账户的激活:
+{{ url_for('auth.confirm', token=token, _external=True) }}
+
+消息来自于 The Factory Team
+Note: replies to this email address are not monitored.

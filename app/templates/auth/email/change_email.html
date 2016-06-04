@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>修改注册邮箱</title>
+</head>
+<body>
+<div>
+    <h2>你好 {{ user.username }},</h2>
+    <p>
+        服务器收到您修改注册邮箱的请求,请点击下面的链接完成重置注册邮箱:
+        {{ url_for('auth.confirm_email', token=token, _external=True) }}
+    </p>
+    <p>
+        消息来自于 The Factory Team
+        Note: replies to this email address are not monitored.
+    </p>
+</div>
+</body>
+</html>

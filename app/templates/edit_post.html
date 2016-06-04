@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block page_content %}
+    <div class="page-header">
+    <h1>编辑博文</h1>
+    </div>
+    <div>
+    <form class="form form-horizontal" method="post" role="form">
+      {{ edit_form.hidden_tag() }}
+      {{ wtf.form_errors(edit_form, hiddens="only") }}
+    <div class="col-md-4">
+      {{ wtf.form_field(edit_form.title) }}
+    </div>
+    <div class="col-md-10">
+      {{ wtf.form_field(edit_form.body,cols=40,rows=10) }}
+      {{ wtf.form_field(edit_form.submit) }}
+    </div>
+    </form>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {{ pagedown.include_pagedown() }}
+    <div class="page-header"></div>
+{% endblock %}
+</html>

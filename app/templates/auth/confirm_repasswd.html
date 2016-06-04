@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+    .button{color: green;}
+    .info{color: firebrick;}
+    .content{align-self: center;color: red;}
+    .alert{margin-left: 10px; margin-right: 780px;margin-top: 200px;}
+    .close{margin-left: 20px;}
+    </style>
+{% endblock %}
+{% block page_content %}
+<div class="contend">
+    <div class="page-header">
+    <h1 class="info">重置密码</h1>
+    </div>
+    <p>填写您的新密码并点击<span class="button">重置按钮</span>，重置密码。</p>
+    <div class="col-md-4">
+    {{ wtf.quick_form(confirm_recreate_pwd_form) }}
+    </div>
+</div>
+{% if get_flashed_messages() %}
+<div class="alert alert-warning" align="center">
+<button type="button" class="close" data-dismiss="alert">&times;</button>
+<div class="content" align="center">{{ get_flashed_messages()[0] }}</div>
+</div>
+{% endif %}
+{% endblock %}
+</html>

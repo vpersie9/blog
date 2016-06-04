@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .warn{color: red;}
+        .info{color: green;}
+        .def{color: #337ab7;}
+    </style>
+{% endblock %}
+{% block page_content %}
+<div class="page-header">
+    <h1>
+        Hello, {{ current_user.username }}!
+    </h1>
+</div>
+    <h3 class="warn">您还没有完成您用户的激活!</h3>
+    <p>
+        为确保您的用户体验请激活您的用户.
+        <span class="def">请查看您的邮箱</span>,激活链接已经发送到您的邮箱.
+    </p>
+    <p>
+        <span class="info">重新获取激活链接?</span>
+        <span class="btn btn-default"><a href="{{ url_for('auth.resend_confirmation') }}">点击获取</a></span>
+    </p>
+{% endblock %}
+</html>

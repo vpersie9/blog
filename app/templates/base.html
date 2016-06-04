@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+{% extends "bootstrap/base.html" %}
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment() }}
+{% endblock %}
+    {% block header %}
+        <title>{% block title %}@1991{% endblock %}</title>
+    {% endblock %}
+{% block navbar %}
+        <div class="navbar navbar-inverse" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <span class="navbar-brand">@1991</span>
+                 </div>
+        <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('index.show') }}">主页</a></li>
+                    <li><a href="{{ url_for('index.posts_top') }}">TopHot 文章</a></li>
+                    <li><a href="{{ url_for('index.users_top') }}">TopHot 博主</a></li>
+                    <li><a href="#">Help?</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if current_user.is_authenticated and current_user.can(Permission.MODERATE_COMMENTS) %}
+                    <li><a href="{{ url_for('index.moderate') }}">管理评论</a></li>
+                    {% endif %}
+                    {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('index.user',username=current_user.username) }}"><img class="img-rounded profile-thumbnail" {% if current_user.file_img %} src="../static/img2/{{ current_user.file_img}}" {% else %} src="{{ user.gravatar(size=23) }}" {% endif %}></a></li>
+                    <li class="dropdown"><a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="true">{{ current_user.username }}<span class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        {% if current_user.is_authenticated %}
+                        <li><a href="{{ url_for('auth.logout') }}">注销登录</a></li>
+                        {% endif %}
+                        {% if current_user.is_authenticated %}
+                        {% if current_user.is_authenticated and current_user.is_administrator() %}
+                        <li><a class="label-danger" href="{{ url_for('index.edit_profile_admin',id=1) }}">我的资料[Admin]</a></li>
+                        {% else %}
+                        <li><a class="label-success" href="{{ url_for('index.edit_profile') }}">我的资料</a></li>
+                        {% endif %}
+                        {% endif %}
+                        <li><a href="{{ url_for('auth.change_passwd') }}">修改密码</a></li>
+                        <li><a href="{{ url_for('auth.change_email') }}">修改绑定邮箱</a></li>
+                    </ul>
+                    </li>
+                    <li>
+                    {% else %}
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ url_for('auth.register') }}">注册</a></li>
+                        <li><a href="{{ url_for('auth.login') }}">登录</a></li>
+                    </ul>
+                    </li>
+                    {% endif %}
+                </ul>
+        </div>
+            </div>
+        </div>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        {% block page_content %}{% endblock %}
+    </div>
+{% endblock %}
+</html>
+

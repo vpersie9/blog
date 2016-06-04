@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+    .pass{color: firebrick;}
+    .span{color: green;}
+    .content{align-self: center;color: red;}
+    .alert{margin-left: 10px; margin-right: 780px;margin-top: 300px;}
+    .close{margin-left: 20px;}
+    </style>
+{% endblock %}
+{% block page_content %}
+<div class="contend">
+    <div class="page-header">
+        <h1 class="pass">修改密码？</h1>
+    </div>
+    <h4 class="span">
+        请您输入当前密码，并输入新的密码确认修改。
+    </h4>
+    <div class="col-md-4">
+    {{ wtf.quick_form(change_passwd_form) }}
+    </div>
+</div>{% if get_flashed_messages() %}
+<div class="alert alert-warning" align="center">
+<button type="button" class="close" data-dismiss="alert">&times;</button>
+<div class="content" align="center">{{ get_flashed_messages()[0] }}</div>
+</div>
+{% endif %}
+{% endblock %}
+</html>

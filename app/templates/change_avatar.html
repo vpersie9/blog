@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{#{% block head %}#}
+{#    {{ super() }}#}
+{#    <style type="text/css">#}
+{#        .img0-edit{margin-left: 70px;margin-top: 20px;}#}
+{#        .edit-w{margin-left: 50px;}#}
+{#    </style>#}
+{#{% endblock %}#}
+{% block page_content %}
+<div class="page-header">
+{#<img0 class="img0-rounded profile-thumbnail" src="{{ user.gravatar(size=256) }}">#}
+{#    {% if user==current_user %}#}
+{#    <div class="img0-edit">#}
+{#        <a href="#" class="btn btn-primary">修改用户头像</a>#}
+{#    </div>#}
+{#    {% endif %}#}
+{#    <h1 class="edit-w">编辑资料</h1>#}
+</div>
+<div>
+    <form method="post"  enctype=multipart/form-data>
+      {{ change_avatar_form.hidden_tag() }}
+      {{ wtf.form_errors(change_avatar_form, hiddens="only") }}
+    <div class="col-md-10">
+      {{ wtf.form_field(change_avatar_form.file) }}
+      {{ wtf.form_field(change_avatar_form.submit) }}
+    </div>
+    </form>
+</div>
+{% endblock %}
+</html>

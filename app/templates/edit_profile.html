@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .img-edit{margin-left: 70px;margin-top: 20px;}
+        .edit-w{margin-left: 50px;}
+    </style>
+{% endblock %}
+{% block page_content %}
+<div class="page-header">
+<img class="img-rounded profile-thumbnail" {% if user.file_img %} src="../static/img0/{{ user.file_img}}" {% else %} src="{{ user.gravatar(size=256) }}" {% endif %}>
+    {% if user==current_user %}
+    <div class="img-edit">
+        <a href="{{ url_for('index.change_avatar') }}" class="btn btn-primary">修改用户头像</a>
+    </div>
+    {% endif %}
+    <h1 class="edit-w">编辑资料</h1>
+</div>
+<div class="col-md-4">
+    {{ wtf.quick_form(edit_profile_form) }}
+</div>
+{% endblock %}
+</html>

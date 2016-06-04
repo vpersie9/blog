@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+    .content{align-self:center;color: red;}
+    .alert{margin-left: 300px; margin-right: 300px;}
+    .close{margin-left: 20px;}
+    .col-md-4{margin-left: 380px;margin-top: 100px;}
+    .title{margin-left: 100px;color: gray;}
+    .btn{margin-left: 70px;}
+    </style>
+{% endblock %}
+{% block page_content %}
+{% if get_flashed_messages() %}
+<div class="alert alert-warning">
+<button type="button" class="close" data-dismiss="alert">&times;</button>
+<div class="content" align="center">{{ get_flashed_messages()[0] }}</div>
+</div>
+{% endif %}
+    <div class="col-md-4">
+    <h1 class="title">@1991</h1>
+    <form class="form form-horizontal" method="post" role="form">
+      {{ login_form.hidden_tag() }}
+      {{ wtf.form_errors(login_form, hiddens="only") }}
+
+      {{ wtf.form_field(login_form.email) }}
+      {{ wtf.form_field(login_form.password) }}
+      {{ wtf.form_field(login_form.submit) }}
+    <span class="btn btn-default"><a href="{{ url_for('auth.recreate_passwd') }}">忘记密码?</a></span>
+    </form>
+    </div>
+{% endblock %}
+</html>

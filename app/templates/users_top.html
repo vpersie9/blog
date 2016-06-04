@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .user-author{margin-left: 80px;margin-top: -18px;}
+        .user-date{margin-left: 980px;margin-top: -60px;}
+        .user-body{margin-left: 80px; margin-top: 10px;}
+    </style>
+{% endblock %}
+{% block page_content %}
+    <div class="page-header">
+    <h2>莫愁“前路”无知己！</h2>
+    </div>
+<ul class="users">
+    {% for user in users %}
+    <div class="page-header">
+    <li class="user" style="list-style-type: none">
+        <div class="profile-thumbnail">
+            <a href="{{ url_for('index.user',username=user.username) }}">
+                <img class="img-rounded profile-thumbnail" {% if user.file_img %} src="../static/img1/{{ user.file_img}}" {% else %} src="{{ user.gravatar(size=60) }}" {% endif %}>
+            </a>
+        </div>
+        <div class="user-date">{{ moment(user.last_seen).fromNow() }}</div>
+        <div class="user-author">
+            <a href="{{ url_for('index.user',username=user.username) }}">
+                {{ user.username }}
+            </a>
+        </div>
+        <div class="user-body">
+                <p>
+                    {% if user.name %}{{ user.name }}{% endif %}
+                    {% if user.location %}
+                        来自<a href="http://map.baidu.com/?newmap=1&s=s%26wd%3D{{ user.location }}%26c%3D289&from=alamap&tpl=mapcity">{{ user.location }}</a>
+                    {% endif %}
+                </p>
+                {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+                <a href="{{ url_for('index.followers',username=user.username) }}">Followers:<span class="badge">{{ user.followers.count() - 1 }}</span></a>
+                <a href="{{ url_for('index.followed_by',username=user.username) }}">Following:<span class="badge">{{ user.followed.count() - 1 }}</span></a>
+                {% if current_user.is_authenticated and user != current_user and user.is_following(current_user) %}
+                | <span class="label label-default">关注了你</span>
+                {% endif %}
+        </div>
+    </li>
+    </div>
+    {% endfor %}
+</ul>
+{% endblock %}
+</html>
