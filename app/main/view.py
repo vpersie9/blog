@@ -277,6 +277,7 @@ def change_avatar():
                         file.filename.split('.',1)[1] in app.config['ALLOWED_EXTENSIONS']:
             filename=secure_filename(file.filename)
             image=Image.open(file)
+	    u'博客中含有三类大小不同的头像图片 将三类图片以相同的文件名存储到数据库file_img字段中'
             image=[image.resize((256,256)),image.resize((60,60)),image.resize((23,23))]
             image[0].save(os.path.join(app.config['UPLOAD_FOLDER'].get('0'),filename))
             image[1].save(os.path.join(app.config['UPLOAD_FOLDER'].get('1'),filename))
