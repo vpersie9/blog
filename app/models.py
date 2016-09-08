@@ -294,28 +294,6 @@ class User(UserMixin,db.Model):
         return '{url}/{hash}?s={size}&d={default}&r={rating}'.\
             format(url=url,hash=hash,size=size,default=default,rating=rating)
 
-    # @staticmethod
-    # def generate_fake(count=100):
-    #     from sqlalchemy.exc import IntegrityError
-    #     from random import seed
-    #     import forgery_py
-    #
-    #     seed()
-    #     for i in range(count):
-    #         user=User(email=forgery_py.internet.email_address(),
-    #                   username=forgery_py.internet.user_name(),
-    #                   password=forgery_py.lorem_ipsum.word(),
-    #                   confirmed=True,
-    #                   name=forgery_py.name.full_name(),
-    #                   location=forgery_py.address.city(),
-    #                   about_me=forgery_py.lorem_ipsum.sentence(),
-    #                   member_since=forgery_py.date.date(True))
-    #         db.session.add(user)
-    #         try:
-    #             db.session.commit()
-    #         except IntegrityError:
-    #             db.session.rollback()
-
     def follow(self,user):
         if not self.is_following(user):
             f=Follow(follower=self,followed=user)
